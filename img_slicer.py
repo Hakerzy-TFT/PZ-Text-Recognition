@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import cv2
 import os
+import shutil
 
 wr, hr = 40, 10
 imageArray = [[0 for x in range(wr)] for y in range(hr)]
@@ -19,11 +20,22 @@ h=0
 counter=0
 key=[0, 0, 0]
 file = "../image/out.png"
+lettersPath= "../letters"
+imageSplittedPath="../imageSplitted"
 img = Image.open(file)
 thresh = 200
 fn = lambda x : 255 if x > thresh else 0
 r = img.convert('L').point(fn, mode='1')
 r.save(file)
+for filename in os.listdir(lettersPath):
+    file_path = os.path.join(lettersPath, filename)
+    try:
+        if os.path.isfile(file_path) or os.path.islink(file_path):
+            os.unlink(file_path)
+        elif os.path.isdir(file_path):
+            shutil.rmtree(file_path)
+    except Exception as e:
+        print('Failed to delete %s. Reason: %s' % (file_path, e))
 imgRead = cv2.imread(file)
 ar = np.array(imgRead)
 for r in range(0,imgRead.shape[0],10):
