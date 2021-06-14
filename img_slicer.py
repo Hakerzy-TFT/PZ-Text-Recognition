@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[4]:
-
-
 from image_slicer import slice
 import numpy as np
 import matplotlib.pyplot as plt
@@ -60,8 +54,7 @@ for r in range(0,imgRead.shape[0],10):
 #     print(c)
 
 arr=np.sum(cleanArray,axis=0)
-# print()
-# print (arr)
+#print (arr)
 sum=0
 List= []
 ListOfArrays= []
@@ -93,12 +86,7 @@ for ee in range (40):
 letters=(len(List))/2
 # print(letters)
 # print(List)   
-
-# for rows in range (10):  # outer loop  
-#         for columns in range (40):  # inner loop
-#             print(cleanArray[rows][columns], end = " ") # print the elements 
-#         print() 
-wrr, hrr = 40, 10      
+  
 for xx in range (int(letters)):
     sthArray = [[0 for y in range(List[1+(2*xx)]-List[0+(2*xx)]+1)] for x in range(hr)]
     # print("nowa iteracja")
@@ -108,8 +96,6 @@ for xx in range (int(letters)):
                 sthArray[rows][columns-List[0+(2*xx)]]=cleanArray[rows][columns]
                 # print("kolumna: ",columns)
                 # print("wiersz: ",rows)
-    # for c in sthArray:
-    #     print(c)
     ListOfArrays.append(sthArray)
 
 
@@ -125,32 +111,14 @@ for x in range (len(ListOfArrays)):
     columns = len(arrayOfLetters[0])
     # print (rows, columns)
     np_imgTmp = [[white for x in range(columns)] for y in range(rows)]
-# arrayOfLettersRGB=np.array([0, 0, 0])
-# print(arrayOfLetters[0][2])
     imga = Image.fromarray(arrayOfLetters, 'RGB')
-
-# true_mask = np.all(arrayOfLetters == target_color, axis=2)
-# false_mask = np.all(img != target_color, axis=2)
-
     for i in range (rows):
         for j in range (columns):
             if arrayOfLetters[i][j].any() == 1:
-                # counterr+=1
                 np_imgTmp[i][j]=black
-# print(np_imgTmp)
-# imss=Image.fromarray(np_imgTmp)
-# imss.show()
     npp_imgTmp= np.array(np_imgTmp)
-# np.iinfo(npp_imgTmp.dtype)
     img = npp_imgTmp.astype(np.uint8)
     img=Image.fromarray(img)
     img = img.resize((width, height), Image.ANTIALIAS)
     img.save(f'../letters/letter{x}.png')
     # img.show() pokaz obrazek
-
-
-# In[ ]:
-
-
-
-

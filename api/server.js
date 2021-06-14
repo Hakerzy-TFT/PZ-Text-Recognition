@@ -15,13 +15,14 @@ app.get("/", function (req, res) {
   });
 });
 
-app.get("/sendimg", function (req, res) {
+app.post("/sendimg", function (req, res) {
   var fs = require("fs");
   var file = "../result.txt";
   var imageSplitted = "../imageSplitted";
   if (!fs.existsSync(imageSplitted)) {
     fs.mkdirSync(imageSplitted);
   }
+  console.log(req.body.imgsrc);
   var imgData = req.body.imgsrc;
   var base64Data = imgData.replace(/^data:image\/png;base64,/, "");
   require("fs").writeFile(
